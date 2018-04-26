@@ -1,0 +1,20 @@
+{
+  "name": "nuxt-ts-module",
+  "version": "1.0.0",
+  "description": "Use Typescript within Nuxt.js application seamlessly.",
+  "main": "index.js",
+  "author": "Chanlito <chanlitohem@gmail.com>",
+  "license": "MIT",
+  "keywords": ["nuxt", "typescript", "module"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chanlito/nuxt-ts-module"
+  },
+  "peerDependencies": {
+    "cache-loader": "^1.2.2",
+    "fork-ts-checker-webpack-plugin": "^0.4.1",
+    "thread-loader": "^1.1.5",
+    "ts-loader": "^3.5.0",
+    "webpack-combine-loaders": "^2.0.3"
+  }
+}
