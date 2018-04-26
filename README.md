@@ -11,8 +11,10 @@ npm install nuxt-ts-module
 
 * Install its peer dependencies.
 ```bash
-npm install nuxt-ts-module
+npm install cache-loader thread-loader fork-ts-checker-webpack-plugin ts-loader@3.5.0 webpack-combine-loaders --save-dev
 ```
+
+I'll assume that you have already installed `Typescript` and possibly `TSLint`.
 
 ```js
 // inside nuxt.config.js
