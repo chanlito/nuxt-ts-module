@@ -5,11 +5,13 @@ Use Typescript within Nuxt.js application seamlessly.
 ## Setup
 
 * Install the module.
+
 ```bash
 npm install nuxt-ts-module
 ```
 
 * Install its peer dependencies.
+
 ```bash
 npm install cache-loader thread-loader fork-ts-checker-webpack-plugin ts-loader@3.5.0 webpack-combine-loaders --save-dev
 ```
@@ -18,20 +20,25 @@ I'll assume that you have already installed `Typescript` and possibly `TSLint`.
 
 ```js
 // inside nuxt.config.js
-
 {
   // ...
-  modules: [
-    'nuxt-ts-module'
-  ],
+  modules: ['nuxt-ts-module'],
+  // ...
+}
+```
+
+```js
+// or with some options
+{
+  // ...
+  modules: ['nuxt-ts-module'],
   typescript: {
-    useThreads: true, // default is false
-    forkTSCheckerOptions: {
-      tsconfig: resolve('.', 'client/tsconfig.json'), // use your own config file
-      tslint: resolve('.', 'tslint.json'), // use your own config file
-      // ... check fork-ts-checker-plugins docs for more options
-    },
+    useThreads: false,
+    forkTSCheckerOptions: {},
   },
   // ...
 }
 ```
+
+## LICENSE
+MIT
