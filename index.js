@@ -3,6 +3,8 @@ const combineLoaders = require('webpack-combine-loaders');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = async function TypeScriptModule(moduleOptions) {
+  'use strict';
+
   const options = Object.assign(
     {
       useThreads: false,
@@ -59,10 +61,12 @@ module.exports = async function TypeScriptModule(moduleOptions) {
     });
 
     // Add TypeScript loader for vue files
+    /* eslint-disable-next-line */
     for (const rule of config.module.rules) {
       if (rule.loader === 'vue-loader') {
         rule.options.loaders = rule.options.loaders || {};
-        rule.options.loaders.ts = rule.options.loaders.tsx = loader;
+        rule.options.loaders.ts = loader;
+        rule.options.loaders.tsx = loader;
       }
     }
 
@@ -76,7 +80,7 @@ module.exports = async function TypeScriptModule(moduleOptions) {
     }
 
     // Add a fork ts checker webpack plugin
-    if (config.name === 'server') {
+    if (config.name === 'client') {
       config.plugins.push(new ForkTsCheckerWebpackPlugin(forkTSCheckerOptions));
     }
   });

@@ -13,7 +13,7 @@ npm install nuxt-ts-module
 * Install its peer dependencies.
 
 ```bash
-npm install -D cache-loader thread-loader fork-ts-checker-webpack-plugin webpack-combine-loaders ts-loader@3 # use ts-loader@4 for Nuxt 2
+npm install -D cache-loader thread-loader fork-ts-checker-webpack-plugin webpack-combine-loaders ts-loader # use ts-loader@3 for Nuxt version 1
 ```
 
 I'll assume that you have already installed `Typescript` and possibly `TSLint`.
