@@ -1,6 +1,6 @@
 {
   "name": "nuxt-ts-module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Use Typescript within Nuxt.js application seamlessly.",
   "main": "index.js",
   "author": "Chanlito <chanlitohem@gmail.com>",
