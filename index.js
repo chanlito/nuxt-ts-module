@@ -28,9 +28,9 @@ function TypeScriptModule(moduleOptions) {
     const loaders = [];
 
     if (options.cache === true) {
-      loader.push({ loader: 'cache-loader' });
+      loaders.push({ loader: 'cache-loader' });
     } else if (typeof options.cache === 'object') {
-      loader.push({ loader: 'cache-loader', options: options.cache });
+      loaders.push({ loader: 'cache-loader', options: options.cache });
     }
 
     if (options.thread === true) {
@@ -43,7 +43,7 @@ function TypeScriptModule(moduleOptions) {
       loader: 'ts-loader',
       options: {
         appendTsSuffixTo: [/\.vue$/],
-        transpileOnly: true,
+        transpileOnly: options.checker ? true : false,
         happyPackMode: !!options.thread,
       },
     });
@@ -78,14 +78,10 @@ function TypeScriptModule(moduleOptions) {
 
     // Add a fork ts checker webpack plugin
     if (config.name === 'client') {
-      if (
-        options.thread &&
-        options.checker &&
-        options.checker.checkSyntacticErrors
-      ) {
+      if (options.checker && options.thread) {
         options.checker.checkSyntacticErrors = true;
+        config.plugins.push(new ForkTsCheckerWebpackPlugin(options.checker));
       }
-      config.plugins.push(new ForkTsCheckerWebpackPlugin(options.checker));
     }
   });
 }
