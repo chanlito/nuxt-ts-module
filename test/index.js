@@ -5,15 +5,65 @@ const nuxtConfig = require('./nuxt.config');
 
 let nuxt;
 
-before(async () => {
-  nuxt = new Nuxt(nuxtConfig);
-  await new Builder(nuxt).build();
-  await nuxt.listen(4000);
-});
+describe('Test #1 - Fork TS Checker + Cache + Thread', async () => {
+  before(async () => {
+    nuxtConfig.typescript.cache = {
+      cacheDirectory: resolve('.', '.cache-stuffs'),
+    };
+    nuxtConfig.typescript.thread = {
+      workers: 2,
+    };
+    nuxt = new Nuxt(nuxtConfig);
+    await new Builder(nuxt).build();
+    nuxt.listen(4000);
+  });
 
-describe('Test #1', () => {
   it('should respond `Hello World!`', async () => {
     const { html } = await nuxt.renderRoute('/');
     expect(html).to.have.string('<h1 class="green">Hello World!</h1>');
+  });
+
+  after(async () => {
+    nuxt.close();
+  });
+});
+
+describe('Test #2 - Without Fork TS Checker', async () => {
+  before(async () => {
+    nuxtConfig.typescript.cache = true;
+    nuxtConfig.typescript.thread = true;
+    nuxtConfig.typescript.checker = false;
+    nuxt = new Nuxt(nuxtConfig);
+    await new Builder(nuxt).build();
+    nuxt.listen(4000);
+  });
+
+  it('should respond `Hello World!`', async () => {
+    const { html } = await nuxt.renderRoute('/');
+    expect(html).to.have.string('<h1 class="green">Hello World!</h1>');
+  });
+
+  after(async () => {
+    nuxt.close();
+  });
+});
+
+describe('Test #3 - Silly', async () => {
+  before(async () => {
+    nuxtConfig.typescript.cache = '';
+    nuxtConfig.typescript.thread = '';
+    nuxtConfig.typescript.checker = false;
+    nuxt = new Nuxt(nuxtConfig);
+    await new Builder(nuxt).build();
+    nuxt.listen(4000);
+  });
+
+  it('should respond `Hello World!`', async () => {
+    const { html } = await nuxt.renderRoute('/');
+    expect(html).to.have.string('<h1 class="green">Hello World!</h1>');
+  });
+
+  after(async () => {
+    nuxt.close();
   });
 });
