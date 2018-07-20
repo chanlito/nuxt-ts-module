@@ -1,53 +1,50 @@
-const os = require('os');
+'use strict';
+
 const combineLoaders = require('webpack-combine-loaders');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-module.exports = async function TypeScriptModule(moduleOptions) {
-  'use strict';
+function TypeScriptModule(moduleOptions) {
+  const moduleDefaultOptions = {
+    cache: false,
+    thread: false,
+    checker: {
+      checkSyntacticErrors: false,
+      workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
+      formatter: 'codeframe',
+      vue: true,
+    },
+  };
 
   const options = Object.assign(
-    {
-      useThreads: false,
-    },
+    moduleDefaultOptions,
     this.options.typescript,
     moduleOptions,
   );
 
-  const forkTSCheckerOptions = {
-    checkSyntacticErrors: true,
-    workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
-    formatter: 'codeframe',
-    watch: ['client'],
-    vue: true,
-    ...options.forkTSCheckerOptions,
-  };
-
-  // Add .ts extension for store, middleware and more
   this.nuxt.options.extensions.push('ts');
   this.nuxt.options.extensions.push('tsx');
 
-  // Extend build
   this.extendBuild(config => {
     const loaders = [];
 
-    if (options.useThreads) {
-      loaders.push(
-        { loader: 'cache-loader' },
-        {
-          loader: 'thread-loader',
-          options: {
-            workers: os.cpus().length - forkTSCheckerOptions.workers,
-          },
-        },
-      );
+    if (options.cache === true) {
+      loaders.push({ loader: 'cache-loader' });
+    } else if (typeof options.cache === 'object') {
+      loaders.push({ loader: 'cache-loader', options: options.cache });
+    }
+
+    if (options.thread === true) {
+      loaders.push({ loader: 'thread-loader' });
+    } else if (typeof options.thread === 'object') {
+      loaders.push({ loader: 'thread-loader', options: options.thread });
     }
 
     loaders.push({
       loader: 'ts-loader',
       options: {
         appendTsSuffixTo: [/\.vue$/],
-        transpileOnly: true,
-        happyPackMode: options.useThreads,
+        transpileOnly: options.checker ? true : false,
+        happyPackMode: !!options.thread,
       },
     });
 
@@ -81,9 +78,14 @@ module.exports = async function TypeScriptModule(moduleOptions) {
 
     // Add a fork ts checker webpack plugin
     if (config.name === 'client') {
-      config.plugins.push(new ForkTsCheckerWebpackPlugin(forkTSCheckerOptions));
+      if (options.checker && options.thread) {
+        options.checker.checkSyntacticErrors = true;
+        config.plugins.push(new ForkTsCheckerWebpackPlugin(options.checker));
+      }
     }
   });
-};
+}
+
+module.exports = TypeScriptModule;
 
 module.exports.meta = require('./package.json');

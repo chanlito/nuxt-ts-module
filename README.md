@@ -1,5 +1,8 @@
 # Nuxt Typescript Module
 
+[![Build Status](https://travis-ci.org/chanlito/nuxt-ts-module.svg?branch=master)](https://travis-ci.org/chanlito/nuxt-ts-module)
+[![Coverage Status](https://coveralls.io/repos/github/chanlito/nuxt-ts-module/badge.svg?branch=master)](https://coveralls.io/github/chanlito/nuxt-ts-module?branch=master)
+
 A tiny module to use Typescript within Nuxt.js application.
 
 ## Setup
@@ -33,8 +36,9 @@ I'll assume that you have already installed `Typescript` and possibly `TSLint`.
   // ...
   modules: ['nuxt-ts-module'],
   typescript: {
-    useThreads: false, // set to `true` to use `cache-loader` & `thread-loader`
-    forkTSCheckerOptions: {}, // options available here: https://github.com/Realytics/fork-ts-checker-webpack-plugin#options
+    cache: false, // set to `true` to use `cache-loader`
+    thread: false, // set to `true` to use `thread-loader`
+    checker: {}, // options available here: https://github.com/Realytics/fork-ts-checker-webpack-plugin#options
   },
   // ...
 }

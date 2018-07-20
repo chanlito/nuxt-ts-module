@@ -1,10 +1,13 @@
 {
   "name": "nuxt-ts-module",
   "version": "1.0.3",
-  "description": "Use Typescript within Nuxt.js application seamlessly.",
+  "description": "A tiny module to use Typescript within Nuxt.js application.",
   "main": "index.js",
   "author": "Chanlito <chanlitohem@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "nyc mocha"
+  },
   "keywords": [
     "nuxt",
     "typescript",
@@ -14,11 +17,42 @@
     "type": "git",
     "url": "https://github.com/chanlito/nuxt-ts-module"
   },
+  "devDependencies": {
+    "cache-loader": "^1.2.2",
+    "chai": "^4.1.2",
+    "fork-ts-checker-webpack-plugin": "^0.4.3",
+    "mocha": "^5.2.0",
+    "nuxt-edge": "^2.0.0-25523369.7c85202",
+    "nyc": "^12.0.2",
+    "thread-loader": "^1.1.5",
+    "ts-loader": "^4.4.2",
+    "typescript": "^2.9.2",
+    "webpack-combine-loaders": "^2.0.3"
+  },
   "peerDependencies": {
     "cache-loader": "^1.2.2",
-    "fork-ts-checker-webpack-plugin": "^0.4.1",
+    "fork-ts-checker-webpack-plugin": "^0.4.3",
     "thread-loader": "^1.1.5",
-    "ts-loader": "^4.2.0",
+    "ts-loader": "^4.4.2",
     "webpack-combine-loaders": "^2.0.3"
+  },
+  "nyc": {
+    "include": [
+      "index.js"
+    ],
+    "reporter": [
+      "html",
+      "lcov",
+      "text-summary"
+    ],
+    "all": true
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all"
   }
 }

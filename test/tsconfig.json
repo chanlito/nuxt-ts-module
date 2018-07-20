@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "es6",
+    "strict": true,
+    "target": "es6"
+  },
+  "exclude": [".nuxt"]
+}
