@@ -10,6 +10,7 @@ node_modules
 .cache-loader
 .cache-stuffs
 .coveralls.yml
+.prettierrc
 
 # nuxt build
-test/.nuxt
+test
