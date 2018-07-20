@@ -1,2 +1,12 @@
+# coverage
+.nyc_output
+coverage
+
 # dependencies
 node_modules
+
+# misc
+.DS_Store
+
+# nuxt build
+test/.nuxt
