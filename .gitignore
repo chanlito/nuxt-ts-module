@@ -7,6 +7,8 @@ node_modules
 
 # misc
 .DS_Store
+.cache-loader
+.cache-stuffs
 
 # nuxt build
 test/.nuxt
