@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const combineLoaders = require('webpack-combine-loaders');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
@@ -12,6 +13,7 @@ function TypeScriptModule(moduleOptions) {
       workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
       formatter: 'codeframe',
       vue: true,
+      tsconfig: path.resolve(__dirname, 'tsconfig.json'),
     },
   };
 

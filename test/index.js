@@ -7,11 +7,13 @@ let nuxt;
 
 describe('Test #1 - Fork TS Checker + Cache + Thread', async () => {
   before(async () => {
-    nuxtConfig.typescript.cache = {
-      cacheDirectory: resolve('.', '.cache-stuffs'),
-    };
-    nuxtConfig.typescript.thread = {
-      workers: 2,
+    nuxtConfig.typescript = {
+      cache: {
+        cacheDirectory: resolve('.', '.cache-stuffs'),
+      },
+      thread: {
+        workers: 2,
+      },
     };
     nuxt = new Nuxt(nuxtConfig);
     await new Builder(nuxt).build();
@@ -30,9 +32,11 @@ describe('Test #1 - Fork TS Checker + Cache + Thread', async () => {
 
 describe('Test #2 - Without Fork TS Checker', async () => {
   before(async () => {
-    nuxtConfig.typescript.cache = true;
-    nuxtConfig.typescript.thread = true;
-    nuxtConfig.typescript.checker = false;
+    nuxtConfig.typescript = {
+      cache: true,
+      thread: true,
+      checker: false,
+    };
     nuxt = new Nuxt(nuxtConfig);
     await new Builder(nuxt).build();
     nuxt.listen(4000);
