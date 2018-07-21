@@ -10,7 +10,5 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2015"
-  },
-  "include": ["**/*.js", "**/*.ts", "**/*.vue"],
-  "exclude": [".nuxt", "build", "dist", "node_modules"]
+  }
 }

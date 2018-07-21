@@ -13,7 +13,7 @@ function TypeScriptModule(moduleOptions) {
       workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
       formatter: 'codeframe',
       vue: true,
-      tsconfig: path.resolve(__dirname, 'tsconfig.json'),
+      tsconfig: path.resolve(__dirname, 'tsconfig.default.json'),
     },
   };
 
