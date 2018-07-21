@@ -12,6 +12,7 @@ node_modules
 .coveralls.yml
 .prettierrc
 tsconfig.json
+tsconfig.default.json
 
 # nuxt build
 test
