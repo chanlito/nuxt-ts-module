@@ -36,6 +36,7 @@ describe('Test #2 - Without Fork TS Checker', async () => {
       cache: true,
       thread: true,
       checker: false,
+      loader: { tsconfig: resolve('.', 'tsconfig.default.json') },
     };
     nuxt = new Nuxt(nuxtConfig);
     await new Builder(nuxt).build();

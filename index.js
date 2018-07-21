@@ -5,6 +5,8 @@ const combineLoaders = require('webpack-combine-loaders');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 function TypeScriptModule(moduleOptions) {
+  const tsconfigDefault = path.resolve(__dirname, 'tsconfig.default.json');
+
   const moduleDefaultOptions = {
     cache: false,
     thread: false,
@@ -13,7 +15,11 @@ function TypeScriptModule(moduleOptions) {
       workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
       formatter: 'codeframe',
       vue: true,
-      tsconfig: path.resolve(__dirname, 'tsconfig.default.json'),
+      tsconfig: tsconfigDefault,
+    },
+    loader: {
+      configFile: tsconfigDefault,
+      tsconfig: tsconfigDefault,
     },
   };
 
@@ -45,6 +51,7 @@ function TypeScriptModule(moduleOptions) {
       loader: 'ts-loader',
       options: {
         appendTsSuffixTo: [/\.vue$/],
+        configFile: options.loader.configFile || options.loader.tsconfig,
         transpileOnly: options.checker ? true : false,
         happyPackMode: !!options.thread,
       },
