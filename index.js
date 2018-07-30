@@ -9,24 +9,17 @@ function TypeScriptModule(moduleOptions) {
 
   const moduleDefaultOptions = {
     cache: false,
+    checker: false,
     thread: false,
-    checker: {
-      checkSyntacticErrors: false,
-      workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
-      formatter: 'codeframe',
-      vue: true,
-      tsconfig: tsconfigDefault,
-    },
-    loader: {
-      configFile: tsconfigDefault,
-    },
+    tsconfig: tsconfigDefault,
+    tslint: undefined,
   };
 
-  const options = Object.assign(
-    moduleDefaultOptions,
-    this.options.typescript,
-    moduleOptions,
-  );
+  const options = {
+    ...moduleDefaultOptions,
+    ...this.options.typescript,
+    ...moduleOptions,
+  };
 
   this.nuxt.options.extensions.push('ts');
   this.nuxt.options.extensions.push('tsx');
@@ -50,8 +43,8 @@ function TypeScriptModule(moduleOptions) {
       loader: 'ts-loader',
       options: {
         appendTsSuffixTo: [/\.vue$/],
-        configFile: options.loader.configFile,
-        transpileOnly: options.checker ? true : false,
+        configFile: options.tsconfig,
+        transpileOnly: !!options.checker,
         happyPackMode: !!options.thread,
       },
     });
@@ -87,8 +80,16 @@ function TypeScriptModule(moduleOptions) {
     // Add a fork ts checker webpack plugin
     if (config.name === 'client') {
       if (options.checker) {
-        if (options.thread) options.checker.checkSyntacticErrors = true;
-        config.plugins.push(new ForkTsCheckerWebpackPlugin(options.checker));
+        const tsCheckerDefaultOptions = {
+          checkSyntacticErrors: !!options.thread,
+          workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
+          formatter: 'codeframe',
+          vue: true,
+          tsconfig: tsconfigDefault,
+        };
+        config.plugins.push(
+          new ForkTsCheckerWebpackPlugin(tsCheckerDefaultOptions),
+        );
       }
     }
   });
