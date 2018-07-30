@@ -19,7 +19,6 @@ function TypeScriptModule(moduleOptions) {
     },
     loader: {
       configFile: tsconfigDefault,
-      tsconfig: tsconfigDefault,
     },
   };
 
@@ -51,7 +50,7 @@ function TypeScriptModule(moduleOptions) {
       loader: 'ts-loader',
       options: {
         appendTsSuffixTo: [/\.vue$/],
-        configFile: options.loader.configFile || options.loader.tsconfig,
+        configFile: options.loader.configFile,
         transpileOnly: options.checker ? true : false,
         happyPackMode: !!options.thread,
       },
@@ -87,8 +86,8 @@ function TypeScriptModule(moduleOptions) {
 
     // Add a fork ts checker webpack plugin
     if (config.name === 'client') {
-      if (options.checker && options.thread) {
-        options.checker.checkSyntacticErrors = true;
+      if (options.checker) {
+        if (options.thread) options.checker.checkSyntacticErrors = true;
         config.plugins.push(new ForkTsCheckerWebpackPlugin(options.checker));
       }
     }
