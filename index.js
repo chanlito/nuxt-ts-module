@@ -9,7 +9,6 @@ function TypeScriptModule(moduleOptions) {
 
   const moduleDefaultOptions = {
     cache: false,
-    checker: false,
     thread: false,
     tsconfig: tsconfigDefault,
     tslint: undefined,
@@ -44,7 +43,7 @@ function TypeScriptModule(moduleOptions) {
       options: {
         appendTsSuffixTo: [/\.vue$/],
         configFile: options.tsconfig,
-        transpileOnly: !!options.checker,
+        transpileOnly: true,
         happyPackMode: !!options.thread,
       },
     });
@@ -79,18 +78,16 @@ function TypeScriptModule(moduleOptions) {
 
     // Add a fork ts checker webpack plugin
     if (config.name === 'client') {
-      if (options.checker) {
-        const tsCheckerDefaultOptions = {
-          checkSyntacticErrors: !!options.thread,
-          workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
-          formatter: 'codeframe',
-          vue: true,
-          tsconfig: tsconfigDefault,
-        };
-        config.plugins.push(
-          new ForkTsCheckerWebpackPlugin(tsCheckerDefaultOptions),
-        );
-      }
+      const tsCheckerDefaultOptions = {
+        checkSyntacticErrors: !!options.thread,
+        workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
+        formatter: 'codeframe',
+        vue: true,
+        tsconfig: options.tsconfig || tsconfigDefault,
+      };
+      config.plugins.push(
+        new ForkTsCheckerWebpackPlugin(tsCheckerDefaultOptions),
+      );
     }
   });
 }

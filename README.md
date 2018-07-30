@@ -1,6 +1,5 @@
 # Nuxt Typescript Module
 
-
 [![npm](https://img.shields.io/npm/v/nuxt-ts-module.svg)](https://www.npmjs.com/package/nuxt-ts-module)
 [![npm](https://img.shields.io/npm/dt/nuxt-ts-module.svg)](https://www.npmjs.com/package/nuxt-ts-module)
 [![Build Status](https://travis-ci.org/chanlito/nuxt-ts-module.svg?branch=master)](https://travis-ci.org/chanlito/nuxt-ts-module)
@@ -10,7 +9,7 @@ A tiny module to use Typescript within Nuxt 2.
 
 ## Setup
 
-* Install the module.
+- Install the module.
 
 ```bash
 npm install nuxt-ts-module
@@ -18,7 +17,8 @@ npm install nuxt-ts-module
 
 ## Usage
 
-* inside `nuxt.config.js`
+- inside `nuxt.config.js`
+
 ```js
 {
   // ...
@@ -33,13 +33,13 @@ npm install nuxt-ts-module
   // ...
   modules: ['nuxt-ts-module'],
   typescript: {
-    cache: false, // set to `true` to use `cache-loader`
-    thread: false, // set to `true` to use `thread-loader`
-    checker: {}, // options available here: https://github.com/Realytics/fork-ts-checker-webpack-plugin#options
+    tsconfig,
+    tslint
   },
   // ...
 }
 ```
 
 ## LICENSE
+
 MIT
