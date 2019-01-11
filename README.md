@@ -7,6 +7,8 @@
 
 A tiny module to use Typescript within Nuxt 2.
 
+**UPDATE**: If you're using `nuxt-edge` you don't need this module anymore.
+
 ## Setup
 
 - Install the module.
